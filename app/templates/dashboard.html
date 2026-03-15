@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoicePulse AI Dashboard</title>
+    <!-- Google Fonts - Inter for modern typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        /* ============================================
+           DESIGN SYSTEM - Light Theme
+           ============================================ */
+        :root {
+            /* Background Colors - Pearl White Palette */
+            --bg-primary: #f8fafc;
+            --bg-secondary: #f1f5f9;
+            --bg-tertiary: #e2e8f0;
+            --bg-card: rgba(255, 255, 255, 0.85);
+            --bg-card-hover: rgba(255, 255, 255, 0.95);
+            
+            /* Accent Colors */
+            --accent-indigo: #6366f1;
+            --accent-sky: #0ea5e9;
+            --accent-emerald: #10b981;
+            --accent-primary: #6366f1;
+            --accent-secondary: #0ea5e9;
+            --accent-tertiary: #10b981;
+            --accent-gradient: linear-gradient(135deg, #6366f1 0%, #0ea5e9 100%);
+            --accent-gradient-hover: linear-gradient(135deg, #818cf8 0%, #38bdf8 100%);
+            
+            /* Glow Effects - Subtle for light theme */
+            --glow-indigo: 0 4px 20px rgba(99, 102, 241, 0.25);
+            --glow-cyan: 0 4px 20px rgba(14, 165, 233, 0.2);
+            --glow-emerald: 0 4px 20px rgba(16, 185, 129, 0.2);
+            
+            /* Text Colors - Charcoal */
+            --text-primary: #1e293b;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            
+            /* Semantic Colors */
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            
+            /* Borders - Cool Gray */
+            --border-color: #cbd5e1;
+            --border-glow: rgba(99, 102, 241, 0.4);
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --shadow-glow: 0 4px 30px rgba(99, 102, 241, 0.1);
+            
+            /* Spacing */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+            
+            /* Border Radius */
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            
+            /* Transitions */
+            --transition-fast: 0.15s ease;
+            --transition-normal: 0.3s ease;
+            --transition-slow: 0.5s ease;
+        }
+
+        /* ============================================
+           BASE STYLES
+           ============================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Subtle background pattern */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(14, 165, 233, 0.05) 0%, transparent 40%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* ============================================
+           NAVBAR
+           ============================================ */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-primary);
+            transition: var(--transition-normal);
+        }
+
+        .navbar-brand:hover {
+            transform: scale(1.02);
+            filter: brightness(0.95);
+        }
+
+        .navbar-brand i {
+            font-size: 1.8rem;
+            color: var(--accent-indigo);
+        }
+
+        /* ============================================
+           CARDS
+           ============================================ */
+        .card {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--spacing-lg);
+            transition: var(--transition-normal);
+            overflow: hidden;
+        }
+
+        .card:hover {
+            border-color: var(--accent-indigo);
+            box-shadow: var(--shadow-lg), var(--shadow-glow);
+            transform: translateY(-2px);
+        }
+
+        .card-header {
+            background: linear-gradient(90deg, rgba(99, 102, 241, 0.08) 0%, rgba(14, 165, 233, 0.05) 100%);
+            border-bottom: 1px solid var(--border-color);
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0 !important;
+            padding: var(--spacing-md) var(--spacing-lg);
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+        }
+
+        .card-header::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--accent-gradient);
+            border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+        }
+
+        .card-header i {
+            font-size: 1.3rem;
+            color: var(--accent-indigo);
+        }
+
+        .card-body {
+            padding: var(--spacing-lg);
+        }
+
+        /* ============================================
+           UPLOAD ZONE
+           ============================================ */
+        .upload-zone {
+            position: relative;
+            border: 2px dashed var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            text-align: center;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.03) 0%, rgba(14, 165, 233, 0.03) 100%);
+            transition: var(--transition-normal);
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .upload-zone::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: var(--accent-gradient);
+            border-radius: var(--radius-lg);
+            opacity: 0;
+            z-index: -1;
+            transition: var(--transition-normal);
+        }
+
+        .upload-zone:hover {
+            border-color: var(--accent-indigo);
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.06) 0%, rgba(14, 165, 233, 0.06) 100%);
+            transform: scale(1.01);
+        }
+
+        .upload-zone:hover::before {
+            opacity: 0.15;
+        }
+
+        .upload-zone i {
+            font-size: 3.5rem;
+            color: var(--accent-indigo);
+            margin-bottom: var(--spacing-md);
+            display: block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .upload-zone h5 {
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .upload-zone p {
+            color: var(--text-muted);
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        /* ============================================
+           FORM CONTROLS
+           ============================================ */
+        .form-control {
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 14px 18px;
+            color: var(--text-primary);
+            transition: var(--transition-normal);
+            font-size: 1rem;
+        }
+
+        .form-control:focus {
+            background: var(--bg-secondary);
+            border-color: var(--accent-indigo);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1), var(--shadow-glow);
+            color: var(--text-primary);
+            outline: none;
+        }
+
+        .form-control::placeholder {
+            color: var(--text-muted);
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--spacing-sm);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-label i {
+            color: var(--accent-sky);
+        }
+
+        /* ============================================
+           BUTTONS
+           ============================================ */
+        .btn-primary {
+            background: var(--accent-indigo);
+            border: none;
+            border-radius: var(--radius-md);
+            padding: 14px 32px;
+            font-weight: 600;
+            color: white;
+            transition: var(--transition-normal);
+            box-shadow: var(--glow-indigo);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--accent-gradient-hover);
+            opacity: 0;
+            transition: var(--transition-normal);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.35);
+        }
+
+        .btn-primary:hover::before {
+            opacity: 1;
+        }
+
+        .btn-primary span {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ============================================
+           METRIC CARDS
+           ============================================ */
+        .metric-card {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(14, 165, 233, 0.05) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            text-align: center;
+            transition: var(--transition-normal);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, transparent 70%);
+            opacity: 0;
+            transition: var(--transition-normal);
+        }
+
+        .metric-card:hover {
+            transform: scale(1.03);
+            border-color: var(--accent-indigo);
+            box-shadow: var(--glow-indigo);
+        }
+
+        .metric-card:hover::before {
+            opacity: 1;
+        }
+
+        .metric-card h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            color: var(--accent-indigo);
+            margin-bottom: var(--spacing-xs);
+            line-height: 1;
+            position: relative;
+            z-index: 1;
+        }
+
+        .metric-card h6 {
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.75rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .metric-card h6 i {
+            color: var(--accent-emerald);
+            margin-right: 8px;
+        }
+
+        /* ============================================
+           METRIC BOXES
+           ============================================ */
+        .metric-box {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.04) 0%, rgba(14, 165, 233, 0.03) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+            transition: var(--transition-normal);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-box::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--accent-gradient);
+            border-radius: var(--radius-md) 0 0 var(--radius-md);
+        }
+
+        .metric-box:hover {
+            transform: translateX(8px);
+            border-color: var(--accent-indigo);
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.06) 0%, rgba(14, 165, 233, 0.04) 100%);
+        }
+
+        .metric-box strong {
+            color: var(--accent-indigo);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .metric-box strong i {
+            color: var(--accent-sky);
+        }
+
+        /* ============================================
+           SENTIMENT COLORS
+           ============================================ */
+        .sentiment-positive { 
+            color: var(--accent-emerald) !important; 
+            font-weight: 700;
+        }
+        
+        .sentiment-negative { 
+            color: var(--error) !important; 
+            font-weight: 700;
+        }
+        
+        .sentiment-neutral { 
+            color: var(--text-secondary) !important; 
+            font-weight: 700;
+        }
+
+        /* ============================================
+           TRANSCRIPT
+           ============================================ */
+        .transcript-segment {
+            margin-bottom: var(--spacing-md);
+            padding: var(--spacing-md);
+            background: var(--bg-secondary);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            transition: var(--transition-normal);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .transcript-segment::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            transition: var(--transition-normal);
+        }
+
+        .transcript-segment:hover {
+            border-color: var(--accent-indigo);
+            box-shadow: var(--shadow-glow);
+            transform: translateX(4px);
+        }
+
+        .agent-segment {
+            border-left: 4px solid var(--accent-indigo);
+            background: linear-gradient(90deg, rgba(99, 102, 241, 0.05) 0%, var(--bg-secondary) 100%);
+        }
+
+        .agent-segment::before {
+            background: var(--accent-indigo);
+        }
+
+        .customer-segment {
+            border-left: 4px solid var(--accent-sky);
+            background: linear-gradient(90deg, rgba(14, 165, 233, 0.05) 0%, var(--bg-secondary) 100%);
+        }
+
+        .customer-segment::before {
+            background: var(--accent-sky);
+        }
+
+        .transcript-segment strong {
+            color: var(--accent-indigo);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .transcript-segment strong i {
+            color: var(--accent-indigo);
+        }
+
+        .customer-segment strong i {
+            color: var(--accent-sky);
+        }
+
+        .transcript-segment .badge {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            margin-left: 12px;
+        }
+
+        .badge-emotion {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(14, 165, 233, 0.15) 100%);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .transcript-segment .timestamp {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin-left: 8px;
+        }
+
+        .transcript-segment .text {
+            color: var(--text-secondary);
+            margin-top: var(--spacing-sm);
+            line-height: 1.7;
+        }
+
+        /* ============================================
+           LLM REPORT
+           ============================================ */
+        .llm-report-card {
+            border: 2px solid var(--border-color);
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(14, 165, 233, 0.03) 100%);
+        }
+
+        .llm-report-card .card-header {
+            background: var(--accent-indigo);
+            color: white;
+        }
+
+        .llm-report-card .card-header::before {
+            display: none;
+        }
+
+        .llm-report-card .card-header i {
+            color: white;
+        }
+
+        .llm-report-card pre {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-lg);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.8;
+            white-space: pre-wrap;
+            font-family: 'Inter', 'Fira Code', monospace;
+        }
+
+        /* ============================================
+           BADGES & TAGS
+           ============================================ */
+        .badge {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .bg-warning {
+            background: var(--accent-indigo) !important;
+            color: white !important;
+        }
+
+        .text-warning {
+            color: var(--accent-indigo) !important;
+            font-weight: 600;
+        }
+
+        /* ============================================
+           SCROLLBAR
+           ============================================ */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-gradient);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-gradient-hover);
+        }
+
+        /* ============================================
+           ANIMATIONS
+           ============================================ */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-in {
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+
+        /* ============================================
+           SECTION TITLE
+           ============================================ */
+        .section-title {
+            font-weight: 700;
+            color: var(--accent-indigo);
+            margin-bottom: var(--spacing-lg);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .section-title i {
+            font-size: 1.4rem;
+            color: var(--accent-sky);
+        }
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 768px) {
+            .metric-card h1 {
+                font-size: 3rem;
+            }
+            
+            .card-body {
+                padding: var(--spacing-md);
+            }
+            
+            .upload-zone {
+                padding: var(--spacing-lg);
+            }
+            
+            .upload-zone i {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .metric-card {
+                padding: var(--spacing-lg);
+            }
+            
+            .metric-card h1 {
+                font-size: 2.5rem;
+            }
+            
+            .navbar-brand {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* ============================================
+           UTILITIES
+           ============================================ */
+        .text-muted {
+            color: var(--text-muted) !important;
+        }
+
+        .fw-bold {
+            font-weight: 700;
+        }
+
+        .fs-4 {
+            font-size: 1.5rem;
+        }
+
+        .mt-2 { margin-top: 0.5rem; }
+        .mt-4 { margin-top: 1.5rem; }
+        .mb-3 { margin-bottom: 1rem; }
+        .me-1 { margin-right: 0.25rem; }
+        .me-2 { margin-right: 0.5rem; }
+        .ms-2 { margin-left: 0.5rem; }
+        .d-flex { display: flex; }
+        .d-block { display: block; }
+        .justify-content-between { justify-content: space-between; }
+        .align-items-center { align-items: center; }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="bi bi-mic-fill"></i>
+                VoicePulse AI
+            </a>
+        </div>
+    </nav>
+
+    <div class="container mt-4 pb-5">
+        <!-- Upload Section -->
+        <div class="card animate-in">
+            <div class="card-header">
+                <i class="bi bi-cloud-upload-fill"></i>
+                Upload Call Recording
+            </div>
+            <div class="card-body">
+                <form action="/dashboard/analyze" method="post" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="audioFile" class="form-label">
+                            <i class="bi bi-file-earmark-music"></i>Select Audio File (WAV, MP3)
+                        </label>
+                        <input class="form-control" type="file" id="audioFile" name="file" accept=".wav,.mp3" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <span><i class="bi bi-search me-2"></i>Analyze Call</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        {% if report %}
+
+        <!-- Metrics Summary -->
+        <div class="row mt-4">
+            <div class="col-md-4 animate-in delay-1">
+                <div class="metric-card">
+                    <h1>{{ report.metrics.interaction_score }}</h1>
+                    <h6><i class="bi bi-star-fill"></i>Interaction Score</h6>
+                </div>
+            </div>
+            <div class="col-md-8 animate-in delay-2">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="bi bi-graph-up"></i>
+                        Key Metrics
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="metric-box">
+                                    <strong><i class="bi bi-chat-dots"></i>Talk Ratio</strong>
+                                    <div class="d-flex justify-content-between mt-2">
+                                        <span><i class="bi bi-person-badge text-warning me-1"></i>Agent:</span>
+                                        <span class="fw-bold">{{ report.metrics.talk_ratio.agent }}</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <span><i class="bi bi-person text-warning me-1"></i>Customer:</span>
+                                        <span class="fw-bold">{{ report.metrics.talk_ratio.customer }}</span>
+                                    </div>
+                                </div>
+                                <div class="metric-box">
+                                    <strong><i class="bi bi-emoji-smile"></i>Avg Sentiment</strong>
+                                    <div class="mt-2">
+                                        Agent: <span class="sentiment-{{ report.metrics.average_sentiment.agent|lower }}">{{ report.metrics.average_sentiment.agent }}</span>
+                                        <br>
+                                        Customer: <span class="sentiment-{{ report.metrics.average_sentiment.customer|lower }}">{{ report.metrics.average_sentiment.customer }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="metric-box">
+                                    <strong><i class="bi bi-heart-fill"></i>Dominant Emotion</strong>
+                                    <div class="mt-2">
+                                        <span class="badge bg-warning text-dark me-1">{{ report.metrics.dominant_emotion.agent }}</span>
+                                        <small class="text-muted">Agent</small>
+                                    </div>
+                                    <div class="mt-2">
+                                        <span class="badge bg-warning text-dark me-1">{{ report.metrics.dominant_emotion.customer }}</span>
+                                        <small class="text-muted">Customer</small>
+                                    </div>
+                                </div>
+                                <div class="metric-box">
+                                    <strong><i class="bi bi-clock"></i>Total Talk Time</strong>
+                                    <div class="mt-2">
+                                        <span class="fs-4 fw-bold text-warning">{{ report.metrics.total_duration_seconds }}</span>
+                                        <span class="text-muted">seconds</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Transcript Section -->
+        <div class="card mt-4 animate-in delay-3">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span><i class="bi bi-chat-square-text-fill me-2"></i>Conversation Transcript</span>
+                <small class="text-muted"><i class="bi bi-clock me-1"></i>Sorted by Time</small>
+            </div>
+            <div class="card-body" style="max-height: 500px; overflow-y: auto;">
+                {% for seg in report.transcript %}
+                <div class="transcript-segment {% if seg.speaker == 'Agent' %}agent-segment{% else %}customer-segment{% endif %}">
+                    <strong><i class="bi {% if seg.speaker == 'Agent' %}bi-headset{% else %}bi-person{% endif %}"></i>{{ seg.speaker }}</strong> 
+                    <small class="timestamp">[{{ seg.start }}s - {{ seg.end }}s]</small> 
+                    <span class="badge badge-emotion">{{ seg.emotion }}</span>
+                    <br>
+                    <span class="text mt-2 d-block">{{ seg.text }}</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- LLM Report -->
+        <div class="card mt-4 llm-report-card animate-in delay-4">
+            <div class="card-header">
+                <i class="bi bi-robot me-2"></i>AI Performance Report
+            </div>
+            <div class="card-body">
+                <pre style="white-space: pre-wrap; font-family: inherit; font-size: 14px;">{{ report.llm_report }}</pre>
+            </div>
+        </div>
+
+        {% endif %}
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
