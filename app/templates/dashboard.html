@@ -4,58 +4,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VoicePulse AI Dashboard</title>
-    <!-- Google Fonts - Inter for modern typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
     <style>
         /* ============================================
-           DESIGN SYSTEM - Light Theme
+           DESIGN SYSTEM - NEW COLOR SCHEME
            ============================================ */
         :root {
-            /* Background Colors - Pearl White Palette */
-            --bg-primary: #f8fafc;
-            --bg-secondary: #f1f5f9;
-            --bg-tertiary: #e2e8f0;
-            --bg-card: rgba(255, 255, 255, 0.85);
-            --bg-card-hover: rgba(255, 255, 255, 0.95);
+            /* Background Colors - Warm neutral tones */
+            --bg-primary: #fafbfc;
+            --bg-secondary: #f4f6f8;
+            --bg-tertiary: #e8ecf1;
+            --bg-card: rgba(255, 255, 255, 0.92);
+            --bg-card-solid: #ffffff;
+            --bg-overlay: rgba(15, 23, 42, 0.6);
+            
+            /* Text Colors */
+            --text-primary: #1a1d21;
+            --text-secondary: #4a5568;
+            --text-muted: #8896a6;
+            --text-inverse: #ffffff;
+            
+            /* Brand Colors - Vibrant teal/purple scheme */
+            --brand-primary: #0d9488;
+            --brand-secondary: #7c3aed;
+            --brand-tertiary: #f59e0b;
+            --brand-gradient: linear-gradient(135deg, #0d9488 0%, #7c3aed 100%);
+            --brand-gradient-hover: linear-gradient(135deg, #14b8a6 0%, #8b5cf6 100%);
             
             /* Accent Colors */
-            --accent-indigo: #6366f1;
-            --accent-sky: #0ea5e9;
-            --accent-emerald: #10b981;
-            --accent-primary: #6366f1;
-            --accent-secondary: #0ea5e9;
-            --accent-tertiary: #10b981;
-            --accent-gradient: linear-gradient(135deg, #6366f1 0%, #0ea5e9 100%);
-            --accent-gradient-hover: linear-gradient(135deg, #818cf8 0%, #38bdf8 100%);
-            
-            /* Glow Effects - Subtle for light theme */
-            --glow-indigo: 0 4px 20px rgba(99, 102, 241, 0.25);
-            --glow-cyan: 0 4px 20px rgba(14, 165, 233, 0.2);
-            --glow-emerald: 0 4px 20px rgba(16, 185, 129, 0.2);
-            
-            /* Text Colors - Charcoal */
-            --text-primary: #1e293b;
-            --text-secondary: #475569;
-            --text-muted: #94a3b8;
+            --accent-primary: #0d9488;
+            --accent-secondary: #7c3aed;
+            --accent-tertiary: #f59e0b;
+            --accent-gradient: linear-gradient(135deg, #0d9488 0%, #7c3aed 100%);
+            --accent-gradient-hover: linear-gradient(135deg, #14b8a6 0%, #8b5cf6 100%);
             
             /* Semantic Colors */
-            --success: #10b981;
-            --warning: #f59e0b;
-            --error: #ef4444;
+            --success: #059669;
+            --warning: #d97706;
+            --error: #dc2626;
+            --info: #0284c7;
             
-            /* Borders - Cool Gray */
-            --border-color: #cbd5e1;
-            --border-glow: rgba(99, 102, 241, 0.4);
+            /* Border & Shadow */
+            --border-color: #d1d9e6;
+            --border-light: #e2e8f0;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.12);
+            --shadow-glow: 0 4px 20px rgba(13, 148, 136, 0.15);
             
-            /* Shadows */
-            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
-            --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.1);
-            --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.12);
-            --shadow-glow: 0 4px 30px rgba(99, 102, 241, 0.1);
+            /* Glow Effects */
+            --glow-primary: 0 4px 20px rgba(13, 148, 136, 0.3);
+            --glow-secondary: 0 4px 20px rgba(124, 58, 237, 0.3);
+            --glow-success: 0 4px 20px rgba(5, 150, 105, 0.3);
+            
+            /* Glassmorphism */
+            --glass-bg: rgba(255, 255, 255, 0.8);
+            --glass-border: rgba(255, 255, 255, 0.5);
+            --glass-blur: blur(16px);
             
             /* Spacing */
             --spacing-xs: 0.5rem;
@@ -65,15 +73,16 @@
             --spacing-xl: 3rem;
             
             /* Border Radius */
-            --radius-sm: 8px;
-            --radius-md: 12px;
-            --radius-lg: 16px;
-            --radius-xl: 24px;
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 14px;
+            --radius-xl: 20px;
+            --radius-full: 9999px;
             
             /* Transitions */
             --transition-fast: 0.15s ease;
-            --transition-normal: 0.3s ease;
-            --transition-slow: 0.5s ease;
+            --transition-normal: 0.25s ease;
+            --transition-slow: 0.4s ease;
         }
 
         /* ============================================
@@ -98,7 +107,6 @@
             overflow-x: hidden;
         }
 
-        /* Subtle background pattern */
         body::before {
             content: '';
             position: fixed;
@@ -107,18 +115,97 @@
             right: 0;
             bottom: 0;
             background: 
-                radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.05) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(14, 165, 233, 0.05) 0%, transparent 40%);
+                radial-gradient(ellipse at 0% 0%, rgba(13, 148, 136, 0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 100% 100%, rgba(124, 58, 237, 0.06) 0%, transparent 50%);
             pointer-events: none;
             z-index: -1;
+        }
+
+        /* ============================================
+           TOAST NOTIFICATIONS
+           ============================================ */
+        .toast-container {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast {
+            background: var(--bg-card-solid);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 14px 18px;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 300px;
+            max-width: 400px;
+            transform: translateX(120%);
+            opacity: 0;
+            transition: all 0.35s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .toast.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .toast.success { border-left: 4px solid var(--success); }
+        .toast.error { border-left: 4px solid var(--error); }
+        .toast.info { border-left: 4px solid var(--brand-primary); }
+        .toast.warning { border-left: 4px solid var(--warning); }
+
+        .toast i {
+            font-size: 1.2rem;
+        }
+
+        .toast.success i { color: var(--success); }
+        .toast.error i { color: var(--error); }
+        .toast.info i { color: var(--brand-primary); }
+        .toast.warning i { color: var(--warning); }
+
+        .toast-content {
+            flex: 1;
+        }
+
+        .toast-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 2px;
+        }
+
+        .toast-message {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .toast-close {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-muted);
+            padding: 4px;
+            transition: var(--transition-fast);
+        }
+
+        .toast-close:hover {
+            color: var(--text-primary);
         }
 
         /* ============================================
            NAVBAR
            ============================================ */
         .navbar {
-            background: rgba(255, 255, 255, 0.95) !important;
-            backdrop-filter: blur(20px);
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
             border-bottom: 1px solid var(--border-color);
             padding: 1rem 0;
             position: sticky;
@@ -136,16 +223,19 @@
             gap: 12px;
             color: var(--text-primary);
             transition: var(--transition-normal);
+            text-decoration: none;
         }
 
         .navbar-brand:hover {
             transform: scale(1.02);
-            filter: brightness(0.95);
         }
 
         .navbar-brand i {
-            font-size: 1.8rem;
-            color: var(--accent-indigo);
+            font-size: 1.7rem;
+            background: var(--brand-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         /* ============================================
@@ -153,23 +243,26 @@
            ============================================ */
         .card {
             background: var(--bg-card);
-            backdrop-filter: blur(20px);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-lg);
             box-shadow: var(--shadow-md);
             margin-bottom: var(--spacing-lg);
-            transition: var(--transition-normal);
+            transition: all var(--transition-normal);
             overflow: hidden;
         }
 
         .card:hover {
-            border-color: var(--accent-indigo);
+            border-color: var(--brand-primary);
             box-shadow: var(--shadow-lg), var(--shadow-glow);
             transform: translateY(-2px);
         }
 
         .card-header {
-            background: linear-gradient(90deg, rgba(99, 102, 241, 0.08) 0%, rgba(14, 165, 233, 0.05) 100%);
+            background: linear-gradient(90deg, 
+                rgba(13, 148, 136, 0.06) 0%, 
+                rgba(124, 58, 237, 0.04) 100%);
             border-bottom: 1px solid var(--border-color);
             border-radius: var(--radius-lg) var(--radius-lg) 0 0 !important;
             padding: var(--spacing-md) var(--spacing-lg);
@@ -188,13 +281,13 @@
             top: 0;
             bottom: 0;
             width: 4px;
-            background: var(--accent-gradient);
+            background: var(--brand-gradient);
             border-radius: var(--radius-lg) 0 0 var(--radius-lg);
         }
 
         .card-header i {
-            font-size: 1.3rem;
-            color: var(--accent-indigo);
+            font-size: 1.25rem;
+            color: var(--brand-primary);
         }
 
         .card-body {
@@ -210,8 +303,10 @@
             border-radius: var(--radius-lg);
             padding: var(--spacing-xl);
             text-align: center;
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.03) 0%, rgba(14, 165, 233, 0.03) 100%);
-            transition: var(--transition-normal);
+            background: linear-gradient(135deg, 
+                rgba(13, 148, 136, 0.02) 0%, 
+                rgba(124, 58, 237, 0.02) 100%);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
             overflow: hidden;
         }
@@ -220,7 +315,7 @@
             content: '';
             position: absolute;
             inset: -2px;
-            background: var(--accent-gradient);
+            background: var(--brand-gradient);
             border-radius: var(--radius-lg);
             opacity: 0;
             z-index: -1;
@@ -228,38 +323,146 @@
         }
 
         .upload-zone:hover {
-            border-color: var(--accent-indigo);
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.06) 0%, rgba(14, 165, 233, 0.06) 100%);
-            transform: scale(1.01);
+            border-color: var(--brand-primary);
+            background: linear-gradient(135deg, 
+                rgba(13, 148, 136, 0.04) 0%, 
+                rgba(124, 58, 237, 0.04) 100%);
         }
 
-        .upload-zone:hover::before {
+        .upload-zone.drag-over {
+            border-color: var(--brand-secondary);
+            background: linear-gradient(135deg, 
+                rgba(13, 148, 136, 0.08) 0%, 
+                rgba(124, 58, 237, 0.06) 100%);
+            transform: scale(1.01);
+            box-shadow: var(--glow-secondary);
+        }
+
+        .upload-zone.drag-over::before {
             opacity: 0.15;
+        }
+
+        .upload-zone.file-selected {
+            border-color: var(--success);
+            border-style: solid;
+            background: linear-gradient(135deg, 
+                rgba(5, 150, 105, 0.06) 0%, 
+                rgba(5, 150, 105, 0.02) 100%);
+        }
+
+        .upload-zone.error {
+            border-color: var(--error);
+            border-style: solid;
+            background: linear-gradient(135deg, 
+                rgba(220, 38, 38, 0.06) 0%, 
+                rgba(220, 38, 38, 0.02) 100%);
+            animation: shake 0.5s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-8px); }
+            40%, 80% { transform: translateX(8px); }
         }
 
         .upload-zone i {
             font-size: 3.5rem;
-            color: var(--accent-indigo);
+            background: var(--brand-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin-bottom: var(--spacing-md);
             display: block;
-            animation: float 3s ease-in-out infinite;
+            transition: all 0.3s ease;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+        .upload-zone:hover i {
+            transform: scale(1.1);
+        }
+
+        .upload-zone.drag-over i {
+            animation: bounce 0.6s ease infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0) scale(1.1); }
+            50% { transform: translateY(-15px) scale(1.15); }
         }
 
         .upload-zone h5 {
             color: var(--text-primary);
             font-weight: 600;
             margin-bottom: var(--spacing-xs);
+            transition: var(--transition-normal);
         }
 
         .upload-zone p {
             color: var(--text-muted);
             margin: 0;
             font-size: 0.9rem;
+        }
+
+        .file-info {
+            display: none;
+            margin-top: var(--spacing-md);
+            padding: var(--spacing-md);
+            background: rgba(5, 150, 105, 0.08);
+            border-radius: var(--radius-md);
+            align-items: center;
+            gap: 12px;
+        }
+
+        .file-info.show {
+            display: flex;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .file-info i {
+            font-size: 1.8rem;
+            color: var(--success);
+            margin: 0;
+            background: none;
+            -webkit-text-fill-color: var(--success);
+        }
+
+        .file-details {
+            flex: 1;
+            text-align: left;
+        }
+
+        .file-name {
+            font-weight: 600;
+            color: var(--text-primary);
+            word-break: break-all;
+        }
+
+        .file-size {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .file-remove {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-muted);
+            padding: 8px;
+            border-radius: 50%;
+            transition: var(--transition-fast);
+        }
+
+        .file-remove:hover {
+            background: rgba(220, 38, 38, 0.1);
+            color: var(--error);
+        }
+
+        .hidden-input {
+            display: none;
         }
 
         /* ============================================
@@ -271,14 +474,14 @@
             border-radius: var(--radius-md);
             padding: 14px 18px;
             color: var(--text-primary);
-            transition: var(--transition-normal);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             font-size: 1rem;
         }
 
         .form-control:focus {
             background: var(--bg-secondary);
-            border-color: var(--accent-indigo);
-            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1), var(--shadow-glow);
+            border-color: var(--brand-primary);
+            box-shadow: 0 0 0 4px rgba(13, 148, 136, 0.1);
             color: var(--text-primary);
             outline: none;
         }
@@ -297,60 +500,225 @@
         }
 
         .form-label i {
-            color: var(--accent-sky);
+            color: var(--brand-secondary);
         }
 
         /* ============================================
            BUTTONS
            ============================================ */
         .btn-primary {
-            background: var(--accent-indigo);
+            background: var(--brand-gradient);
             border: none;
             border-radius: var(--radius-md);
             padding: 14px 32px;
             font-weight: 600;
             color: white;
-            transition: var(--transition-normal);
-            box-shadow: var(--glow-indigo);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-md);
             position: relative;
             overflow: hidden;
+            cursor: pointer;
         }
 
         .btn-primary::before {
             content: '';
             position: absolute;
             inset: 0;
-            background: var(--accent-gradient-hover);
+            background: var(--brand-gradient-hover);
             opacity: 0;
             transition: var(--transition-normal);
         }
 
-        .btn-primary:hover {
+        .btn-primary:hover:not(:disabled) {
             transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.35);
+            box-shadow: var(--shadow-lg), var(--glow-primary);
         }
 
-        .btn-primary:hover::before {
+        .btn-primary:hover:not(:disabled)::before {
             opacity: 1;
+        }
+
+        .btn-primary:active:not(:disabled) {
+            transform: translateY(-1px);
         }
 
         .btn-primary span {
             position: relative;
             z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-primary.loading {
+            pointer-events: none;
+        }
+
+        .btn-primary.loading span {
+            opacity: 0;
+        }
+
+        .btn-primary .spinner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            opacity: 0;
+            z-index: 2;
+        }
+
+        .btn-primary.loading .spinner {
+            opacity: 1;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* Ripple effect */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+            pointer-events: none;
+        }
+
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* ============================================
+           PROGRESS BAR
+           ============================================ */
+        .progress-container {
+            margin-top: var(--spacing-md);
+            display: none;
+        }
+
+        .progress-container.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .progress-bar-wrapper {
+            height: 6px;
+            background: var(--bg-tertiary);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--brand-gradient);
+            border-radius: 10px;
+            width: 0%;
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .progress-bar-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: shimmer 1.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .progress-steps {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .progress-step {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .progress-step.active {
+            background: linear-gradient(135deg, 
+                rgba(13, 148, 136, 0.12) 0%, 
+                rgba(124, 58, 237, 0.08) 100%);
+            color: var(--brand-primary);
+            font-weight: 600;
+            border-color: var(--brand-primary);
+        }
+
+        .progress-step.completed {
+            background: rgba(5, 150, 105, 0.1);
+            color: var(--success);
+            border-color: var(--success);
+        }
+
+        .progress-step i {
+            font-size: 0.85rem;
+        }
+
+        .progress-step.active i {
+            animation: pulse 1s ease infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
 
         /* ============================================
            METRIC CARDS
            ============================================ */
         .metric-card {
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(14, 165, 233, 0.05) 100%);
+            background: linear-gradient(135deg, 
+                rgba(13, 148, 136, 0.06) 0%, 
+                rgba(124, 58, 237, 0.04) 100%);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-lg);
             padding: var(--spacing-xl);
             text-align: center;
-            transition: var(--transition-normal);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
+            transform-style: preserve-3d;
+            perspective: 1000px;
         }
 
         .metric-card::before {
@@ -360,15 +728,16 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, transparent 70%);
+            background: radial-gradient(circle, 
+                rgba(13, 148, 136, 0.08) 0%, 
+                transparent 70%);
             opacity: 0;
             transition: var(--transition-normal);
         }
 
         .metric-card:hover {
-            transform: scale(1.03);
-            border-color: var(--accent-indigo);
-            box-shadow: var(--glow-indigo);
+            border-color: var(--brand-primary);
+            box-shadow: var(--glow-primary);
         }
 
         .metric-card:hover::before {
@@ -378,7 +747,10 @@
         .metric-card h1 {
             font-size: 4rem;
             font-weight: 800;
-            color: var(--accent-indigo);
+            background: var(--brand-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin-bottom: var(--spacing-xs);
             line-height: 1;
             position: relative;
@@ -396,22 +768,45 @@
         }
 
         .metric-card h6 i {
-            color: var(--accent-emerald);
+            color: var(--brand-tertiary);
             margin-right: 8px;
+        }
+
+        .metric-card .glow-effect {
+            position: absolute;
+            inset: 0;
+            border-radius: var(--radius-lg);
+            opacity: 0;
+            transition: var(--transition-normal);
+            pointer-events: none;
+            box-shadow: inset 0 0 30px rgba(13, 148, 136, 0.15);
+        }
+
+        .metric-card:hover .glow-effect {
+            opacity: 1;
         }
 
         /* ============================================
            METRIC BOXES
            ============================================ */
         .metric-box {
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.04) 0%, rgba(14, 165, 233, 0.03) 100%);
+            background: linear-gradient(135deg, 
+                rgba(13, 148, 136, 0.03) 0%, 
+                rgba(124, 58, 237, 0.02) 100%);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-md);
             padding: var(--spacing-md);
             margin-bottom: var(--spacing-md);
-            transition: var(--transition-normal);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .metric-box.animate {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .metric-box::before {
@@ -421,18 +816,20 @@
             top: 0;
             bottom: 0;
             width: 4px;
-            background: var(--accent-gradient);
+            background: var(--brand-gradient);
             border-radius: var(--radius-md) 0 0 var(--radius-md);
         }
 
         .metric-box:hover {
-            transform: translateX(8px);
-            border-color: var(--accent-indigo);
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.06) 0%, rgba(14, 165, 233, 0.04) 100%);
+            transform: translateX(6px);
+            border-color: var(--brand-primary);
+            background: linear-gradient(135deg, 
+                rgba(13, 148, 136, 0.05) 0%, 
+                rgba(124, 58, 237, 0.03) 100%);
         }
 
         .metric-box strong {
-            color: var(--accent-indigo);
+            color: var(--brand-primary);
             font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -443,14 +840,14 @@
         }
 
         .metric-box strong i {
-            color: var(--accent-sky);
+            color: var(--brand-secondary);
         }
 
         /* ============================================
            SENTIMENT COLORS
            ============================================ */
         .sentiment-positive { 
-            color: var(--accent-emerald) !important; 
+            color: var(--success) !important; 
             font-weight: 700;
         }
         
@@ -467,15 +864,105 @@
         /* ============================================
            TRANSCRIPT
            ============================================ */
+        .transcript-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-md);
+            padding: var(--spacing-md);
+            background: var(--bg-secondary);
+            border-radius: var(--radius-md);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-primary);
+        }
+
+        .filter-btn:hover {
+            border-color: var(--brand-primary);
+            background: rgba(13, 148, 136, 0.05);
+        }
+
+        .filter-btn.active {
+            background: var(--brand-gradient);
+            color: white;
+            border-color: transparent;
+        }
+
+        .transcript-search {
+            flex: 1;
+            min-width: 200px;
+            position: relative;
+        }
+
+        .transcript-search input {
+            width: 100%;
+            padding: 8px 16px 8px 36px;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            background: var(--bg-card);
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+            color: var(--text-primary);
+        }
+
+        .transcript-search input:focus {
+            outline: none;
+            border-color: var(--brand-primary);
+            box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.1);
+        }
+
+        .transcript-search i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
         .transcript-segment {
             margin-bottom: var(--spacing-md);
             padding: var(--spacing-md);
             background: var(--bg-secondary);
             border-radius: var(--radius-md);
             border: 1px solid var(--border-color);
-            transition: var(--transition-normal);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        .transcript-segment.animate {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .transcript-segment.hidden {
+            display: none;
+        }
+
+        .transcript-segment.highlight {
+            background: linear-gradient(90deg, 
+                rgba(245, 158, 11, 0.12) 0%, 
+                var(--bg-secondary) 100%);
         }
 
         .transcript-segment::before {
@@ -489,31 +976,35 @@
         }
 
         .transcript-segment:hover {
-            border-color: var(--accent-indigo);
+            border-color: var(--brand-primary);
             box-shadow: var(--shadow-glow);
             transform: translateX(4px);
         }
 
         .agent-segment {
-            border-left: 4px solid var(--accent-indigo);
-            background: linear-gradient(90deg, rgba(99, 102, 241, 0.05) 0%, var(--bg-secondary) 100%);
+            border-left: 4px solid var(--brand-primary);
+            background: linear-gradient(90deg, 
+                rgba(13, 148, 136, 0.04) 0%, 
+                var(--bg-secondary) 100%);
         }
 
         .agent-segment::before {
-            background: var(--accent-indigo);
+            background: var(--brand-primary);
         }
 
         .customer-segment {
-            border-left: 4px solid var(--accent-sky);
-            background: linear-gradient(90deg, rgba(14, 165, 233, 0.05) 0%, var(--bg-secondary) 100%);
+            border-left: 4px solid var(--brand-secondary);
+            background: linear-gradient(90deg, 
+                rgba(124, 58, 237, 0.04) 0%, 
+                var(--bg-secondary) 100%);
         }
 
         .customer-segment::before {
-            background: var(--accent-sky);
+            background: var(--brand-secondary);
         }
 
         .transcript-segment strong {
-            color: var(--accent-indigo);
+            color: var(--brand-primary);
             font-weight: 700;
             display: flex;
             align-items: center;
@@ -522,15 +1013,19 @@
         }
 
         .transcript-segment strong i {
-            color: var(--accent-indigo);
+            color: var(--brand-primary);
+        }
+
+        .customer-segment strong {
+            color: var(--brand-secondary);
         }
 
         .customer-segment strong i {
-            color: var(--accent-sky);
+            color: var(--brand-secondary);
         }
 
         .transcript-segment .badge {
-            padding: 6px 14px;
+            padding: 5px 12px;
             border-radius: 20px;
             font-weight: 600;
             font-size: 0.75rem;
@@ -538,7 +1033,9 @@
         }
 
         .badge-emotion {
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(14, 165, 233, 0.15) 100%);
+            background: linear-gradient(135deg, 
+                rgba(13, 148, 136, 0.12) 0%, 
+                rgba(124, 58, 237, 0.12) 100%);
             color: var(--text-primary);
             border: 1px solid var(--border-color);
         }
@@ -555,17 +1052,40 @@
             line-height: 1.7;
         }
 
+        .transcript-segment .text mark {
+            background: rgba(245, 158, 11, 0.25);
+            padding: 0 2px;
+            border-radius: 2px;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: var(--spacing-xl);
+            color: var(--text-muted);
+        }
+
+        .no-results i {
+            font-size: 3rem;
+            margin-bottom: var(--spacing-md);
+            opacity: 0.5;
+        }
+
         /* ============================================
            LLM REPORT
            ============================================ */
         .llm-report-card {
             border: 2px solid var(--border-color);
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(14, 165, 233, 0.03) 100%);
+            background: linear-gradient(135deg, 
+                rgba(13, 148, 136, 0.04) 0%, 
+                rgba(124, 58, 237, 0.02) 100%);
         }
 
         .llm-report-card .card-header {
-            background: var(--accent-indigo);
+            background: var(--brand-gradient);
             color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .llm-report-card .card-header::before {
@@ -574,6 +1094,44 @@
 
         .llm-report-card .card-header i {
             color: white;
+        }
+
+        .report-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .report-action-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            color: white;
+            padding: 8px 12px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+        }
+
+        .report-action-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .report-action-btn.copied {
+            background: rgba(5, 150, 105, 0.3);
+        }
+
+        .llm-report-card .card-body {
+            max-height: 600px;
+            overflow-y: auto;
+            transition: max-height 0.3s ease;
+        }
+
+        .llm-report-card .card-body.collapsed {
+            max-height: 0;
+            padding: 0 var(--spacing-lg);
         }
 
         .llm-report-card pre {
@@ -586,13 +1144,145 @@
             line-height: 1.8;
             white-space: pre-wrap;
             font-family: 'Inter', 'Fira Code', monospace;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .llm-report-card pre.show {
+            opacity: 1;
+        }
+
+        .typing-cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.2em;
+            background: var(--brand-primary);
+            animation: blink 0.8s infinite;
+            vertical-align: text-bottom;
+            margin-left: 2px;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* ============================================
+           SKELETON LOADERS
+           ============================================ */
+        .skeleton {
+            background: linear-gradient(90deg, 
+                var(--bg-tertiary) 25%, 
+                var(--bg-secondary) 50%, 
+                var(--bg-tertiary) 75%);
+            background-size: 200% 100%;
+            animation: skeleton-loading 1.5s infinite;
+            border-radius: var(--radius-sm);
+        }
+
+        @keyframes skeleton-loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .skeleton-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .skeleton-metric {
+            height: 120px;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .skeleton-text {
+            height: 16px;
+            margin-bottom: 8px;
+        }
+
+        .skeleton-text.short { width: 60%; }
+        .skeleton-text.medium { width: 80%; }
+        .skeleton-text.long { width: 100%; }
+
+        /* ============================================
+           SUCCESS ANIMATION
+           ============================================ */
+        .success-overlay {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-overlay);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9998;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .success-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .success-modal {
+            background: var(--bg-card-solid);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-xl);
+            text-align: center;
+            max-width: 400px;
+            transform: scale(0.8);
+            transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .success-overlay.show .success-modal {
+            transform: scale(1);
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, 
+                rgba(5, 150, 105, 0.1) 0%, 
+                rgba(5, 150, 105, 0.05) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--spacing-md);
+        }
+
+        .success-icon i {
+            font-size: 2.5rem;
+            color: var(--success);
+            animation: checkmark 0.5s ease forwards;
+        }
+
+        @keyframes checkmark {
+            0% { transform: scale(0) rotate(-45deg); opacity: 0; }
+            50% { transform: scale(1.2) rotate(0deg); }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        .success-modal h3 {
+            color: var(--text-primary);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .success-modal p {
+            color: var(--text-secondary);
         }
 
         /* ============================================
            BADGES & TAGS
            ============================================ */
         .badge {
-            padding: 6px 14px;
+            padding: 5px 12px;
             border-radius: 20px;
             font-weight: 600;
             font-size: 0.75rem;
@@ -601,12 +1291,12 @@
         }
 
         .bg-warning {
-            background: var(--accent-indigo) !important;
+            background: var(--brand-gradient) !important;
             color: white !important;
         }
 
         .text-warning {
-            color: var(--accent-indigo) !important;
+            color: var(--brand-primary) !important;
             font-weight: 600;
         }
 
@@ -624,12 +1314,12 @@
         }
 
         ::-webkit-scrollbar-thumb {
-            background: var(--accent-gradient);
+            background: var(--brand-gradient);
             border-radius: 10px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: var(--accent-gradient-hover);
+            background: var(--brand-gradient-hover);
         }
 
         /* ============================================
@@ -655,13 +1345,15 @@
         .delay-2 { animation-delay: 0.2s; }
         .delay-3 { animation-delay: 0.3s; }
         .delay-4 { animation-delay: 0.4s; }
+        .delay-5 { animation-delay: 0.5s; }
+        .delay-6 { animation-delay: 0.6s; }
 
         /* ============================================
            SECTION TITLE
            ============================================ */
         .section-title {
             font-weight: 700;
-            color: var(--accent-indigo);
+            color: var(--brand-primary);
             margin-bottom: var(--spacing-lg);
             display: flex;
             align-items: center;
@@ -670,7 +1362,35 @@
 
         .section-title i {
             font-size: 1.4rem;
-            color: var(--accent-sky);
+            color: var(--brand-secondary);
+        }
+
+        /* ============================================
+           EMPTY STATE
+           ============================================ */
+        .empty-state {
+            text-align: center;
+            padding: var(--spacing-xl);
+            color: var(--text-muted);
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: var(--spacing-md);
+            opacity: 0.4;
+        }
+
+        .empty-state h5 {
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        /* ============================================
+           BUTTON SPACING
+           ============================================ */
+        .btn-wrapper {
+            margin-top: var(--spacing-lg);
+            padding-top: var(--spacing-md);
         }
 
         /* ============================================
@@ -691,6 +1411,24 @@
             
             .upload-zone i {
                 font-size: 2.5rem;
+            }
+
+            .transcript-controls {
+                flex-direction: column;
+            }
+
+            .filter-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .transcript-search {
+                width: 100%;
+            }
+
+            .toast {
+                min-width: unset;
+                max-width: calc(100vw - 40px);
             }
         }
 
@@ -731,13 +1469,37 @@
         .ms-2 { margin-left: 0.5rem; }
         .d-flex { display: flex; }
         .d-block { display: block; }
+        .d-none { display: none; }
         .justify-content-between { justify-content: space-between; }
         .align-items-center { align-items: center; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 15px; }
+        .row { display: flex; flex-wrap: wrap; margin: 0 -15px; }
+        .col-md-4, .col-md-6, .col-md-8 { padding: 0 15px; width: 100%; }
+        @media (min-width: 768px) {
+            .col-md-4 { width: 33.333%; }
+            .col-md-6 { width: 50%; }
+            .col-md-8 { width: 66.666%; }
+        }
+        .pb-5 { padding-bottom: 3rem; }
     </style>
 </head>
 <body>
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Success Overlay -->
+    <div class="success-overlay" id="successOverlay">
+        <div class="success-modal">
+            <div class="success-icon">
+                <i class="bi bi-check-lg"></i>
+            </div>
+            <h3>Analysis Complete!</h3>
+            <p>Your call recording has been successfully analyzed.</p>
+        </div>
+    </div>
+
     <!-- Navbar -->
-    <nav class="navbar navbar-dark">
+    <nav class="navbar">
         <div class="container">
             <a class="navbar-brand" href="/">
                 <i class="bi bi-mic-fill"></i>
@@ -748,22 +1510,62 @@
 
     <div class="container mt-4 pb-5">
         <!-- Upload Section -->
-        <div class="card animate-in">
+        <div class="card animate-in" id="uploadCard">
             <div class="card-header">
                 <i class="bi bi-cloud-upload-fill"></i>
                 Upload Call Recording
             </div>
             <div class="card-body">
-                <form action="/dashboard/analyze" method="post" enctype="multipart/form-data">
-                    <div class="mb-3">
-                        <label for="audioFile" class="form-label">
-                            <i class="bi bi-file-earmark-music"></i>Select Audio File (WAV, MP3)
-                        </label>
-                        <input class="form-control" type="file" id="audioFile" name="file" accept=".wav,.mp3" required>
+                <form action="/dashboard/analyze" method="post" enctype="multipart/form-data" id="uploadForm">
+                    <div class="upload-zone" id="uploadZone">
+                        <i class="bi bi-cloud-arrow-up-fill"></i>
+                        <h5>Drag & Drop your audio file here</h5>
+                        <p>or click to browse (WAV, MP3 supported)</p>
+                        <div class="file-info" id="fileInfo">
+                            <i class="bi bi-file-earmark-music-fill"></i>
+                            <div class="file-details">
+                                <div class="file-name" id="fileName"></div>
+                                <div class="file-size" id="fileSize"></div>
+                            </div>
+                            <button type="button" class="file-remove" id="fileRemove">
+                                <i class="bi bi-x-lg"></i>
+                            </button>
+                        </div>
+                        <input class="hidden-input" type="file" id="audioFile" name="file" accept=".wav,.mp3" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">
-                        <span><i class="bi bi-search me-2"></i>Analyze Call</span>
-                    </button>
+                    <div class="progress-container" id="progressContainer">
+                        <div class="progress-bar-wrapper">
+                            <div class="progress-bar-fill" id="progressBar"></div>
+                        </div>
+                        <div class="progress-steps" id="progressSteps">
+                            <div class="progress-step" data-step="1">
+                                <i class="bi bi-cloud-upload"></i>
+                                <span>Uploading audio...</span>
+                            </div>
+                            <div class="progress-step" data-step="2">
+                                <i class="bi bi-people"></i>
+                                <span>Detecting speakers...</span>
+                            </div>
+                            <div class="progress-step" data-step="3">
+                                <i class="bi bi-emoji-smile"></i>
+                                <span>Analyzing sentiment...</span>
+                            </div>
+                            <div class="progress-step" data-step="4">
+                                <i class="bi bi-heart"></i>
+                                <span>Detecting emotions...</span>
+                            </div>
+                            <div class="progress-step" data-step="5">
+                                <i class="bi bi-robot"></i>
+                                <span>Generating AI report...</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="btn-wrapper">
+                        <button type="submit" class="btn btn-primary" id="analyzeBtn" disabled>
+                            <div class="spinner"></div>
+                            <span><i class="bi bi-search me-2"></i>Analyze Call</span>
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -772,15 +1574,16 @@
         {% if report %}
 
         <!-- Metrics Summary -->
-        <div class="row mt-4">
-            <div class="col-md-4 animate-in delay-1">
-                <div class="metric-card">
-                    <h1>{{ report.metrics.interaction_score }}</h1>
+        <div class="row mt-4" id="resultsSection">
+            <div class="col-md-4">
+                <div class="metric-card" id="interactionScoreCard">
+                    <div class="glow-effect"></div>
+                    <h1 id="interactionScore">0</h1>
                     <h6><i class="bi bi-star-fill"></i>Interaction Score</h6>
                 </div>
             </div>
-            <div class="col-md-8 animate-in delay-2">
-                <div class="card">
+            <div class="col-md-8">
+                <div class="card" id="metricsCard">
                     <div class="card-header">
                         <i class="bi bi-graph-up"></i>
                         Key Metrics
@@ -788,42 +1591,42 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="metric-box">
+                                <div class="metric-box" data-delay="0">
                                     <strong><i class="bi bi-chat-dots"></i>Talk Ratio</strong>
                                     <div class="d-flex justify-content-between mt-2">
                                         <span><i class="bi bi-person-badge text-warning me-1"></i>Agent:</span>
-                                        <span class="fw-bold">{{ report.metrics.talk_ratio.agent }}</span>
+                                        <span class="fw-bold" id="talkRatioAgent">{{ report.metrics.talk_ratio.agent }}</span>
                                     </div>
                                     <div class="d-flex justify-content-between">
                                         <span><i class="bi bi-person text-warning me-1"></i>Customer:</span>
-                                        <span class="fw-bold">{{ report.metrics.talk_ratio.customer }}</span>
+                                        <span class="fw-bold" id="talkRatioCustomer">{{ report.metrics.talk_ratio.customer }}</span>
                                     </div>
                                 </div>
-                                <div class="metric-box">
+                                <div class="metric-box" data-delay="100">
                                     <strong><i class="bi bi-emoji-smile"></i>Avg Sentiment</strong>
                                     <div class="mt-2">
-                                        Agent: <span class="sentiment-{{ report.metrics.average_sentiment.agent|lower }}">{{ report.metrics.average_sentiment.agent }}</span>
+                                        Agent: <span class="sentiment-{{ report.metrics.average_sentiment.agent|lower }}" id="sentimentAgent">{{ report.metrics.average_sentiment.agent }}</span>
                                         <br>
-                                        Customer: <span class="sentiment-{{ report.metrics.average_sentiment.customer|lower }}">{{ report.metrics.average_sentiment.customer }}</span>
+                                        Customer: <span class="sentiment-{{ report.metrics.average_sentiment.customer|lower }}" id="sentimentCustomer">{{ report.metrics.average_sentiment.customer }}</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="metric-box">
+                                <div class="metric-box" data-delay="200">
                                     <strong><i class="bi bi-heart-fill"></i>Dominant Emotion</strong>
                                     <div class="mt-2">
-                                        <span class="badge bg-warning text-dark me-1">{{ report.metrics.dominant_emotion.agent }}</span>
+                                        <span class="badge bg-warning text-dark me-1" id="emotionAgent">{{ report.metrics.dominant_emotion.agent }}</span>
                                         <small class="text-muted">Agent</small>
                                     </div>
                                     <div class="mt-2">
-                                        <span class="badge bg-warning text-dark me-1">{{ report.metrics.dominant_emotion.customer }}</span>
+                                        <span class="badge bg-warning text-dark me-1" id="emotionCustomer">{{ report.metrics.dominant_emotion.customer }}</span>
                                         <small class="text-muted">Customer</small>
                                     </div>
                                 </div>
-                                <div class="metric-box">
+                                <div class="metric-box" data-delay="300">
                                     <strong><i class="bi bi-clock"></i>Total Talk Time</strong>
                                     <div class="mt-2">
-                                        <span class="fs-4 fw-bold text-warning">{{ report.metrics.total_duration_seconds }}</span>
+                                        <span class="fs-4 fw-bold text-warning" id="totalDuration">0</span>
                                         <span class="text-muted">seconds</span>
                                     </div>
                                 </div>
@@ -835,31 +1638,63 @@
         </div>
 
         <!-- Transcript Section -->
-        <div class="card mt-4 animate-in delay-3">
+        <div class="card mt-4" id="transcriptCard">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <span><i class="bi bi-chat-square-text-fill me-2"></i>Conversation Transcript</span>
                 <small class="text-muted"><i class="bi bi-clock me-1"></i>Sorted by Time</small>
             </div>
             <div class="card-body" style="max-height: 500px; overflow-y: auto;">
-                {% for seg in report.transcript %}
-                <div class="transcript-segment {% if seg.speaker == 'Agent' %}agent-segment{% else %}customer-segment{% endif %}">
-                    <strong><i class="bi {% if seg.speaker == 'Agent' %}bi-headset{% else %}bi-person{% endif %}"></i>{{ seg.speaker }}</strong> 
-                    <small class="timestamp">[{{ seg.start }}s - {{ seg.end }}s]</small> 
-                    <span class="badge badge-emotion">{{ seg.emotion }}</span>
-                    <br>
-                    <span class="text mt-2 d-block">{{ seg.text }}</span>
+                <div class="transcript-controls">
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-filter="all">
+                            <i class="bi bi-grid-3x3-gap"></i> All
+                        </button>
+                        <button class="filter-btn" data-filter="agent">
+                            <i class="bi bi-headset"></i> Agent
+                        </button>
+                        <button class="filter-btn" data-filter="customer">
+                            <i class="bi bi-person"></i> Customer
+                        </button>
+                    </div>
+                    <div class="transcript-search">
+                        <i class="bi bi-search"></i>
+                        <input type="text" placeholder="Search transcript..." id="transcriptSearch">
+                    </div>
                 </div>
-                {% endfor %}
+                <div id="transcriptList">
+                    {% for seg in report.transcript %}
+                    <div class="transcript-segment {% if seg.speaker == 'Agent' %}agent-segment{% else %}customer-segment{% endif %}" data-speaker="{{ seg.speaker|lower }}" data-index="{{ loop.index0 }}">
+                        <strong><i class="bi {% if seg.speaker == 'Agent' %}bi-headset{% else %}bi-person{% endif %}"></i>{{ seg.speaker }}</strong> 
+                        <small class="timestamp">[{{ seg.start }}s - {{ seg.end }}s]</small> 
+                        <span class="badge badge-emotion">{{ seg.emotion }}</span>
+                        <br>
+                        <span class="text mt-2 d-block">{{ seg.text }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="no-results d-none" id="noResults">
+                    <i class="bi bi-search"></i>
+                    <p>No matching transcript segments found</p>
+                </div>
             </div>
         </div>
 
         <!-- LLM Report -->
-        <div class="card mt-4 llm-report-card animate-in delay-4">
+        <div class="card mt-4 llm-report-card" id="llmReportCard">
             <div class="card-header">
-                <i class="bi bi-robot me-2"></i>AI Performance Report
+                <span><i class="bi bi-robot me-2"></i>AI Performance Report</span>
+                <div class="report-actions">
+                    <button class="report-action-btn" id="copyBtn" title="Copy to clipboard">
+                        <i class="bi bi-clipboard"></i>
+                        <span>Copy</span>
+                    </button>
+                    <button class="report-action-btn" id="expandBtn" title="Expand/Collapse">
+                        <i class="bi bi-arrows-expand" id="expandIcon"></i>
+                    </button>
+                </div>
             </div>
-            <div class="card-body">
-                <pre style="white-space: pre-wrap; font-family: inherit; font-size: 14px;">{{ report.llm_report }}</pre>
+            <div class="card-body" id="reportBody">
+                <pre id="llmReport" style="white-space: pre-wrap; font-family: inherit; font-size: 14px;">{{ report.llm_report }}</pre>
             </div>
         </div>
 
@@ -867,6 +1702,562 @@
 
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Data for JavaScript (populated by Jinja) -->
+    <script id="pageData" type="application/json">
+        {
+            "hasReport": {% if report %}true{% else %}false{% endif %},
+            "interactionScore": {% if report %}{{ report.metrics.interaction_score }}{% else %}0{% endif %},
+            "totalDuration": {% if report %}{{ report.metrics.total_duration_seconds }}{% else %}0{% endif %}
+        }
+    </script>
+
+    <script>
+        // ============================================
+        // GET DATA FROM JINJA TEMPLATE
+        // ============================================
+        var pageDataEl = document.getElementById('pageData');
+        var pageData = JSON.parse(pageDataEl.textContent);
+
+        // ============================================
+        // STATE MANAGEMENT
+        // ============================================
+        var AppState = {
+            current: 'idle',
+            states: ['idle', 'file_selected', 'uploading', 'processing', 'completed', 'error'],
+            
+            setState: function(newState) {
+                if (this.states.indexOf(newState) !== -1) {
+                    var prevState = this.current;
+                    this.current = newState;
+                    this.onStateChange(prevState, newState);
+                }
+            },
+            
+            onStateChange: function(from, to) {
+                var uploadZone = document.getElementById('uploadZone');
+                var analyzeBtn = document.getElementById('analyzeBtn');
+                
+                uploadZone.classList.remove('file-selected', 'error', 'drag-over');
+                analyzeBtn.classList.remove('loading');
+                
+                switch(to) {
+                    case 'idle':
+                        document.getElementById('fileInfo').classList.remove('show');
+                        analyzeBtn.disabled = true;
+                        break;
+                    case 'file_selected':
+                        uploadZone.classList.add('file-selected');
+                        analyzeBtn.disabled = false;
+                        break;
+                    case 'uploading':
+                    case 'processing':
+                        analyzeBtn.classList.add('loading');
+                        analyzeBtn.disabled = true;
+                        break;
+                    case 'error':
+                        uploadZone.classList.add('error');
+                        analyzeBtn.disabled = false;
+                        break;
+                    case 'completed':
+                        break;
+                }
+            }
+        };
+
+        // ============================================
+        // TOAST NOTIFICATIONS
+        // ============================================
+        var Toast = {
+            container: document.getElementById('toastContainer'),
+            
+            show: function(type, title, message, duration) {
+                duration = duration || 4000;
+                var icons = {
+                    success: 'bi-check-circle-fill',
+                    error: 'bi-x-circle-fill',
+                    warning: 'bi-exclamation-triangle-fill',
+                    info: 'bi-info-circle-fill'
+                };
+                
+                var toast = document.createElement('div');
+                toast.className = 'toast ' + type;
+                toast.innerHTML = '<i class="bi ' + icons[type] + '"></i>' +
+                    '<div class="toast-content">' +
+                        '<div class="toast-title">' + title + '</div>' +
+                        '<div class="toast-message">' + message + '</div>' +
+                    '</div>' +
+                    '<button class="toast-close"><i class="bi bi-x"></i></button>';
+                
+                this.container.appendChild(toast);
+                
+                var self = this;
+                requestAnimationFrame(function() {
+                    toast.classList.add('show');
+                });
+                
+                var closeBtn = toast.querySelector('.toast-close');
+                closeBtn.addEventListener('click', function() {
+                    self.hide(toast);
+                });
+                
+                setTimeout(function() {
+                    self.hide(toast);
+                }, duration);
+            },
+            
+            hide: function(toast) {
+                toast.classList.remove('show');
+                setTimeout(function() {
+                    toast.remove();
+                }, 400);
+            }
+        };
+
+        // ============================================
+        // RIPPLE EFFECT
+        // ============================================
+        function createRipple(event) {
+            var button = event.currentTarget;
+            var ripple = document.createElement('span');
+            var rect = button.getBoundingClientRect();
+            var size = Math.max(rect.width, rect.height);
+            var x = event.clientX - rect.left - size / 2;
+            var y = event.clientY - rect.top - size / 2;
+            
+            ripple.style.width = size + 'px';
+            ripple.style.height = size + 'px';
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            ripple.classList.add('ripple');
+            
+            button.appendChild(ripple);
+            
+            setTimeout(function() {
+                ripple.remove();
+            }, 600);
+        }
+
+        // ============================================
+        // FILE SIZE FORMATTER
+        // ============================================
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            var k = 1024;
+            var sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            var i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        // ============================================
+        // UPLOAD ZONE INTERACTIONS
+        // ============================================
+        var uploadZone = document.getElementById('uploadZone');
+        var fileInput = document.getElementById('audioFile');
+        var fileInfo = document.getElementById('fileInfo');
+        var fileName = document.getElementById('fileName');
+        var fileSize = document.getElementById('fileSize');
+        var fileRemove = document.getElementById('fileRemove');
+        var analyzeBtn = document.getElementById('analyzeBtn');
+        var uploadForm = document.getElementById('uploadForm');
+
+        // Click to upload
+        uploadZone.addEventListener('click', function(e) {
+            if (e.target !== fileRemove && !fileRemove.contains(e.target)) {
+                fileInput.click();
+            }
+        });
+
+        // Drag and drop
+        uploadZone.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            uploadZone.classList.add('drag-over');
+        });
+
+        uploadZone.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            uploadZone.classList.remove('drag-over');
+        });
+
+        uploadZone.addEventListener('drop', function(e) {
+            e.preventDefault();
+            uploadZone.classList.remove('drag-over');
+            
+            var files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFileSelection(files[0]);
+            }
+        });
+
+        // File input change
+        fileInput.addEventListener('change', function(e) {
+            if (e.target.files.length > 0) {
+                handleFileSelection(e.target.files[0]);
+            }
+        });
+
+        // Handle file selection
+        function handleFileSelection(file) {
+            var validTypes = ['audio/wav', 'audio/mpeg', 'audio/mp3'];
+            var validExtensions = ['.wav', '.mp3'];
+            var fileExtension = '.' + file.name.split('.').pop().toLowerCase();
+            
+            if (validTypes.indexOf(file.type) === -1 && validExtensions.indexOf(fileExtension) === -1) {
+                AppState.setState('error');
+                Toast.show('error', 'Invalid File', 'Please upload a WAV or MP3 file.');
+                return;
+            }
+            
+            // Create a new FileList with the file
+            var dt = new DataTransfer();
+            dt.items.add(file);
+            fileInput.files = dt.files;
+            
+            fileName.textContent = file.name;
+            fileSize.textContent = formatFileSize(file.size);
+            fileInfo.classList.add('show');
+            AppState.setState('file_selected');
+            Toast.show('success', 'File Selected', file.name + ' is ready for analysis.');
+        }
+
+        // Remove file
+        fileRemove.addEventListener('click', function(e) {
+            e.stopPropagation();
+            fileInput.value = '';
+            fileInfo.classList.remove('show');
+            AppState.setState('idle');
+        });
+
+        // ============================================
+        // ANALYZE BUTTON
+        // ============================================
+        analyzeBtn.addEventListener('click', createRipple);
+
+        // ============================================
+        // PROGRESS SIMULATION
+        // ============================================
+        var progressSteps = [
+            { step: 1, progress: 20, text: 'Uploading audio...' },
+            { step: 2, progress: 40, text: 'Detecting speakers...' },
+            { step: 3, progress: 60, text: 'Analyzing sentiment...' },
+            { step: 4, progress: 80, text: 'Detecting emotions...' },
+            { step: 5, progress: 100, text: 'Generating AI report...' }
+        ];
+
+        function simulateProgress(callback) {
+            var progressContainer = document.getElementById('progressContainer');
+            var progressBar = document.getElementById('progressBar');
+            var stepsContainer = document.getElementById('progressSteps');
+            var stepElements = stepsContainer.querySelectorAll('.progress-step');
+            
+            progressContainer.classList.add('show');
+            AppState.setState('processing');
+            
+            var currentStep = 0;
+            
+            function nextStep() {
+                if (currentStep >= progressSteps.length) {
+                    setTimeout(callback, 300);
+                    return;
+                }
+                
+                var step = progressSteps[currentStep];
+                
+                stepElements.forEach(function(el, index) {
+                    el.classList.remove('active', 'completed');
+                    if (index < step.step - 1) {
+                        el.classList.add('completed');
+                    } else if (index === step.step - 1) {
+                        el.classList.add('active');
+                    }
+                });
+                
+                progressBar.style.width = step.progress + '%';
+                
+                currentStep++;
+                setTimeout(nextStep, 600 + Math.random() * 400);
+            }
+            
+            nextStep();
+        }
+
+        // ============================================
+        // FORM SUBMISSION
+        // ============================================
+        uploadForm.addEventListener('submit', function(e) {
+            if (!fileInput.files.length) {
+                e.preventDefault();
+                Toast.show('error', 'No File', 'Please select a file first.');
+                return;
+            }
+            
+            AppState.setState('uploading');
+            simulateProgress(function() {
+                // Form will submit naturally
+            });
+        });
+
+        // ============================================
+        // DOM CONTENT LOADED
+        // ============================================
+        document.addEventListener('DOMContentLoaded', function() {
+            if (pageData.hasReport) {
+                // Show success overlay
+                var successOverlay = document.getElementById('successOverlay');
+                successOverlay.classList.add('show');
+                setTimeout(function() {
+                    successOverlay.classList.remove('show');
+                }, 2000);
+                
+                // Animate interaction score
+                setTimeout(function() {
+                    animateCounter('interactionScore', 0, pageData.interactionScore, 1500);
+                }, 500);
+                
+                // Animate total duration
+                setTimeout(function() {
+                    animateCounter('totalDuration', 0, pageData.totalDuration, 1200);
+                }, 800);
+                
+                // Animate metric boxes
+                setTimeout(function() {
+                    document.querySelectorAll('.metric-box').forEach(function(box, index) {
+                        var delay = parseInt(box.dataset.delay) || index * 100;
+                        setTimeout(function() {
+                            box.classList.add('animate');
+                        }, delay);
+                    });
+                }, 1000);
+                
+                // Animate transcript segments
+                setTimeout(function() {
+                    animateTranscriptSegments();
+                }, 1500);
+                
+                // Animate LLM report with typing effect
+                setTimeout(function() {
+                    animateLLMReport();
+                }, 2000);
+                
+                // Smooth scroll to results
+                setTimeout(function() {
+                    var resultsSection = document.getElementById('resultsSection');
+                    if (resultsSection) {
+                        resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }, 300);
+            }
+        });
+
+        // ============================================
+        // COUNTER ANIMATION
+        // ============================================
+        function animateCounter(elementId, start, end, duration) {
+            var element = document.getElementById(elementId);
+            if (!element) return;
+            
+            var startTime = performance.now();
+            var diff = end - start;
+            
+            function update(currentTime) {
+                var elapsed = currentTime - startTime;
+                var progress = Math.min(elapsed / duration, 1);
+                
+                // Easing function
+                var easeOutQuart = 1 - Math.pow(1 - progress, 4);
+                var current = Math.round(start + diff * easeOutQuart);
+                
+                element.textContent = current;
+                
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                }
+            }
+            
+            requestAnimationFrame(update);
+        }
+
+        // ============================================
+        // TRANSCRIPT ANIMATIONS
+        // ============================================
+        function animateTranscriptSegments() {
+            var segments = document.querySelectorAll('.transcript-segment');
+            segments.forEach(function(segment, index) {
+                setTimeout(function() {
+                    segment.classList.add('animate');
+                }, index * 80);
+            });
+        }
+
+        // ============================================
+        // TRANSCRIPT FILTER
+        // ============================================
+        var filterBtns = document.querySelectorAll('.filter-btn');
+        var transcriptSearch = document.getElementById('transcriptSearch');
+        var transcriptSegments = document.querySelectorAll('.transcript-segment');
+        var noResults = document.getElementById('noResults');
+
+        filterBtns.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                filterBtns.forEach(function(b) {
+                    b.classList.remove('active');
+                });
+                btn.classList.add('active');
+                filterTranscript(btn.dataset.filter, transcriptSearch.value);
+            });
+        });
+
+        if (transcriptSearch) {
+            transcriptSearch.addEventListener('input', function(e) {
+                var activeFilter = document.querySelector('.filter-btn.active');
+                var filter = activeFilter ? activeFilter.dataset.filter : 'all';
+                filterTranscript(filter, e.target.value);
+            });
+        }
+
+        function filterTranscript(speaker, searchText) {
+            var visibleCount = 0;
+            
+            transcriptSegments.forEach(function(segment) {
+                var segmentSpeaker = segment.dataset.speaker;
+                var textEl = segment.querySelector('.text');
+                var segmentText = textEl.textContent.toLowerCase();
+                var searchLower = searchText.toLowerCase();
+                
+                var speakerMatch = speaker === 'all' || segmentSpeaker === speaker;
+                var searchMatch = !searchText || segmentText.indexOf(searchLower) !== -1;
+                
+                if (speakerMatch && searchMatch) {
+                    segment.classList.remove('hidden');
+                    
+                    // Highlight search text
+                    if (searchText) {
+                        var regex = new RegExp('(' + escapeRegex(searchText) + ')', 'gi');
+                        textEl.innerHTML = textEl.textContent.replace(regex, '<mark>$1</mark>');
+                    }
+                    
+                    visibleCount++;
+                } else {
+                    segment.classList.add('hidden');
+                }
+            });
+            
+            if (noResults) {
+                noResults.classList.toggle('d-none', visibleCount > 0);
+            }
+        }
+
+        function escapeRegex(string) {
+            return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        }
+
+        // ============================================
+        // LLM REPORT TYPING ANIMATION
+        // ============================================
+        function animateLLMReport() {
+            var reportEl = document.getElementById('llmReport');
+            if (!reportEl) return;
+            
+            var fullText = reportEl.textContent;
+            reportEl.textContent = '';
+            reportEl.classList.add('show');
+            
+            var index = 0;
+            var cursor = document.createElement('span');
+            cursor.className = 'typing-cursor';
+            reportEl.appendChild(cursor);
+            
+            function type() {
+                if (index < fullText.length) {
+                    var char = fullText[index];
+                    var textNode = document.createTextNode(char);
+                    reportEl.insertBefore(textNode, cursor);
+                    index++;
+                    
+                    // Variable speed for more natural typing
+                    var delay;
+                    if (char === '.' || char === '!' || char === '?') {
+                        delay = 50;
+                    } else if (char === ',') {
+                        delay = 30;
+                    } else if (char === ' ') {
+                        delay = 5;
+                    } else {
+                        delay = 8 + Math.random() * 10;
+                    }
+                    
+                    setTimeout(type, delay);
+                } else {
+                    cursor.remove();
+                }
+            }
+            
+            type();
+        }
+
+        // ============================================
+        // LLM REPORT ACTIONS
+        // ============================================
+        var copyBtn = document.getElementById('copyBtn');
+        var expandBtn = document.getElementById('expandBtn');
+        var expandIcon = document.getElementById('expandIcon');
+        var reportBody = document.getElementById('reportBody');
+
+        if (copyBtn) {
+            copyBtn.addEventListener('click', function() {
+                var reportText = document.getElementById('llmReport').textContent;
+                navigator.clipboard.writeText(reportText).then(function() {
+                    copyBtn.classList.add('copied');
+                    copyBtn.querySelector('span').textContent = 'Copied!';
+                    Toast.show('success', 'Copied!', 'Report copied to clipboard.');
+                    
+                    setTimeout(function() {
+                        copyBtn.classList.remove('copied');
+                        copyBtn.querySelector('span').textContent = 'Copy';
+                    }, 2000);
+                });
+            });
+        }
+
+        if (expandBtn) {
+            var expanded = true;
+            expandBtn.addEventListener('click', function() {
+                expanded = !expanded;
+                reportBody.classList.toggle('collapsed', !expanded);
+                expandIcon.className = expanded ? 'bi bi-arrows-expand' : 'bi bi-arrows-collapse';
+            });
+        }
+
+        // ============================================
+        // METRIC CARD TILT EFFECT
+        // ============================================
+        var metricCards = document.querySelectorAll('.metric-card');
+        
+        metricCards.forEach(function(card) {
+            card.addEventListener('mousemove', function(e) {
+                var rect = card.getBoundingClientRect();
+                var x = e.clientX - rect.left;
+                var y = e.clientY - rect.top;
+                
+                var centerX = rect.width / 2;
+                var centerY = rect.height / 2;
+                
+                var rotateX = (y - centerY) / 10;
+                var rotateY = (centerX - x) / 10;
+                
+                card.style.transform = 'perspective(1000px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+            });
+        });
+
+        // ============================================
+        // INITIALIZE RIPPLE ON ALL BUTTONS
+        // ============================================
+        document.querySelectorAll('.btn-primary, .filter-btn, .report-action-btn').forEach(function(btn) {
+            btn.addEventListener('click', createRipple);
+        });
+    </script>
 </body>
 </html>
